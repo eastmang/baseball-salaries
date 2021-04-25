@@ -4,8 +4,8 @@
 
 This work is a for fun and interest project for myself about baseball. I wanted to learn about what stats make non-pitchers 
 more valuable than others. I also was curious who the most undervalued players of the past few decades are. I made and 
-compared 4 different models, 3 tree based and a multiple linear regression, to find the bet salary predictor. Then I used
-that model to get the importance weights and find the underpaid players. There is a paper I have written up for this repo.
+compared 4 different predictive strategies, 3 tree based models and a multiple linear regression. Then I used
+the best model to get the importance weights and find the most underpaid players. There is a paper in this repo I have written up for this work.
 More information about the project, models, etc. can all be found in it. 
 
 
@@ -15,14 +15,14 @@ More information about the project, models, etc. can all be found in it.
 ---
 
 The main data for this project came from the Sean Lahman Baseball Database. This is a player stratified dataset that 
-is comprehensive for all pro-baseball players from 1996 on. There is data before that period but is not reliable. 
-Additionally, I used data for the federal to inflation adjust the salaries and allow for a more comparable outcome. More
-data cleaning steps and procedures can be found in the cleaning folder and file. 
+is comprehensive for all pro-baseball players from 1996 and on. There are points from before that period, but they are 
+not reliable, so I did not use them. Additionally, I used data from the federal reserve to inflation adjust the salaries and 
+allow for a more robust outcome. More data cleaning steps and procedures can be found in the cleaning folder and file. 
 
 The main models this paper uses are a random forest, ada boost, and gradient boost. 
 
-The below diagram gives a quick visualization of the difference of these techniques. A more thorough explanation of how
-they work is given in the paper in this repo. 
+The below diagram gives a quick visualization of the difference in these techniques. A more thorough explanation of how
+they work is given in the paper. 
 
 ![img_2.png](images/boost_bag.png)
 
@@ -61,8 +61,7 @@ Rookie was by far the most important predictor of salary.
 |Bernie Williams|1996  |1.021768e+07|
 |Ryan Ludwig|2008  |1.000333e+07|
 
-For a more thorough analysis, explination, and the conclusions from this
-there is the paper in this repo. 
+The paper will go over these facts and figures as well as what they mean, more in depth than is done here. 
 
 
 # References
@@ -75,7 +74,7 @@ there is the paper in this repo.
 5. Freund, Yoav, and Robert E. Schapire. "A decision-theoretic generalization of on-line learning and an application to boosting." Journal of computer and system sciences 55, no. 1 (1997): 119-139.
 6. "5.4 - A Matrix Formulation of the Multiple Regression Model." 5.4 - A Matrix Formulation of the Multiple Regression Model | STAT 462. Accessed April 25, 2021. https://online.stat.psu.edu/stat462/node/132/.
 7. "Inflation, Consumer Prices for the United States." FRED. March 03, 2020. Accessed April 25, 2021. https://fred.stlouisfed.org/series/FPCPITOTLZGUSA.
-
+8. Service Time: Glossary." MLB.com. Accessed April 25, 2021. https://www.mlb.com/glossary/transactions/service-time#:~:text=Upon reaching six years of,his free-agent seasons).
 
 
 
