@@ -11,6 +11,7 @@ NOTES ON WHAT I WANT FOR THE DATABASE:
 
 TABLES:--
 salaries: playerID, salary, lgID, teamID, yearID
+pitching: playerID [[REMOVE PITCHERS]]  
 batting: playerID, G_batting, AB, R, H, HR, RBI, BB, SO
 fielding: playerID, E, PO, A
 people: playerID, debut 
@@ -22,13 +23,14 @@ people: playerID, debut
 # players and not  just substitutes for a minor injury.
 command = '''SELECT salaries.playerID, salaries.salary, salaries.lgID, salaries.teamID, salaries.yearID, 
 batting.playerID, batting.G, batting.AB, batting.R, batting.H, batting.HR, batting.RBI, batting.BB, batting.SO, 
-batting.yearID, fielding.playerID, fielding.E, fielding.PO, fielding.A, fielding.yearID,
+batting.yearID, fielding.playerID, fielding.E, fielding.PO, fielding.A, fielding.yearID, Pitching.playerID,
 people.playerID, people.debut, people.bats
 FROM salaries
-LEFT JOIN batting ON salaries.playerID = batting.playerID AND salaries.yearID = batting.yearID 
-LEFT JOIN fielding ON salaries.playerID = fielding.playerID AND fielding.yearID = salaries.yearID 
-LEFT JOIN people ON salaries.playerID = people.playerID
-WHERE salaries.yearID > 1995 AND batting.G > 50
+LEFT JOIN Pitching USING (playerID)
+LEFT JOIN batting USING (playerID, yearID)
+LEFT JOIN fielding USING (playerID, yearID)
+LEFT JOIN people USING (playerID)
+WHERE salaries.yearID > 1995 AND batting.G > 50 AND Pitching.playerID IS NULL
 GROUP BY salaries.yearID, salaries.playerID;
 '''
 
@@ -64,8 +66,6 @@ df = df.drop(['teamID'], axis=1)
 df = pd.concat([df, pd.get_dummies(df['bats'])], axis=1)
 df = df.drop(['bats'], axis=1)
 
-df = df.drop(['playerID'], axis=1)
-
 # The encoding from the original database for some variables just uses a NAN value for a 0 value. I do not know why.
 df = df.replace(np.nan, 0)
 
@@ -88,7 +88,7 @@ final['sal_adj'] = final['salary'] * final['inflation']
 final['logSal'] = np.log(final['sal_adj'])
 
 # Removing the now superfluous columns
-final = final.drop(['sal_adj', 'inflation', 'salary', 'yearID'], axis=1)
+final = final.drop(['sal_adj', 'inflation', 'salary'], axis=1)
 
 # Saving the data.
 final.to_csv('D:/personal_projects/baseball/salary_data.csv', index=False)
